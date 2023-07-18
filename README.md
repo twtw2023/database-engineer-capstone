@@ -24,7 +24,7 @@ Your project will be evaluated according to the following grading criteria:
 **Files Uploaded in Github**
 1. LittleLemon_data.xlsx : Source File
 2. LittleLemondata.csv : Convert to csv for Dashboard and Charts.ipynb
-3. mySQL WorkBench - ERD Diagram.png : ERD Diagram screenshot from mySQL WorkBench
+3. LittleLemonDM.png : ERD Diagram screenshot from mySQL WorkBench
 4. mySQL WorkBench - Physical Model.png : Physical Data Model screenshot from mySQL WorkBench
 5. LittleLemon_mySQL_Workbench_Forward_Engineering.sql : SQL from mySQL Foward Engg ERD into Physical (Note: must check "DROP objects before CREATE" in the wizard for best practices) 
 6. All_SQL.sql - Contains all the stored Procedure, Views and Sample Test script
