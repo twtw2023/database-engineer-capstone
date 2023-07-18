@@ -1,0 +1,66 @@
+DELIMITER $$
+DROP PROCEDURE IF EXISTS GetMaxQuantity;
+CREATE PROCEDURE GetMaxQuantity()
+BEGIN
+	SELECT MAX(orders.Quantity)
+	FROM orders;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE AddBooking (IN BookingID INT, IN TableNumber INT, IN Date DATE)
+BEGIN
+	INSERT INTO booking (bookingid, tablenumber, date) VALUES (BookingID, TableNumber, Date); 
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE ManageBooking(Table_Number INT)
+BEGIN
+	SELECT *
+	FROM booking
+	WHERE TableNumber = Table_Number;
+END$$
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS UpdateBooking;
+CREATE PROCEDURE UpdateBooking (IN Booking_ID INT, IN Table_Number INT, IN Date DATE)
+BEGIN
+	SET SQL_SAFE_UPDATES = 0;
+	UPDATE booking 
+    SET Date = Date,  TableNumber = Table_Number
+    WHERE BookingID = Booking_ID;
+    SET SQL_SAFE_UPDATES = 1;
+END$$
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS CancelBooking;
+CREATE PROCEDURE CancelBooking(IN Booking_ID INT)
+BEGIN
+	SET SQL_SAFE_UPDATES = 0;
+	DELETE FROM booking WHERE BookingID = Booking_ID;
+    SET SQL_SAFE_UPDATES = 1;
+END$$
+
+-- Sample TEST
+CALL CancelBooking('1');
+CALL ManageBooking(5);
+CALL UpdateBooking('1',5,'2023-07-11');
+CALL AddBooking('1',5,'2023-07-10');
+
+
+DROP VIEW IF EXISTS OrdersView;
+CREATE VIEW OrdersView AS
+	SELECT orders.OrderID, orders.Quantity, orders.Cost, orders.Sales
+	FROM orders
+	WHERE orders.Quantity > 2;
+
+-- Sample TEST
+SELECT * FROM OrdersView;
+
+DROP VIEW IF EXISTS OrdersView2;
+CREATE VIEW OrdersView2 AS
+	SELECT customer.CustomerID, customer.FullName, orders.OrderID, orders.TotalCost
+	FROM customer INNER JOIN orders
+	WHERE orders.TotalCost > 150
+ORDER BY orders.TotalCost DESC;
+
+
